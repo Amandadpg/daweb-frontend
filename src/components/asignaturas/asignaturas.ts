@@ -12,15 +12,17 @@ import { AsignaturaService } from '../../services/asignatura-service';
 })
 export class Asignaturas {
 
-  asignaturas: Asignatura[] = [];
+ asignaturas: Asignatura[] = [];
   
   constructor(
     private asignaturaService: AsignaturaService
-  ){};
+  ) {}
+
+  
 
   ngOnInit(): void {
     this.asignaturaService.getAsignaturas().subscribe(data => {
       this.asignaturas = data;
-    })
+    });
   }
 }

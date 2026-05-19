@@ -9,7 +9,7 @@ import { Matriculas } from '../components/matriculas/matriculas';
 import { ProfesorDetail } from '../components/profesor-detail/profesor-detail';
 import { Profesores } from '../components/profesores/profesores';
 import { MatriculasAprobadas } from '../components/matriculas-aprobadas/matriculas-aprobadas';
-import { TablaAlumno } from '../components/tabla-alumno/tabla-alumno';
+import { TablaAlumnos } from '../components/tabla-alumnos/tabla-alumnos';
 
 export const routes: Routes = [
 
@@ -24,7 +24,8 @@ export const routes: Routes = [
     { path: 'asignatura/:id', component: AsignaturaDetail },
     { path: 'alumno/:id', component: AlumnoDetail },
     { path: 'matriculas-aprobadas', component: MatriculasAprobadas },
-    { path: 'tabla-alumno', component: TablaAlumno }
+    { path: 'tabla-alumnos/:id', component: TablaAlumnos }
+
 
 
 ];

@@ -1,0 +1,34 @@
+<div class="container">
+  <h2>Alumnos matriculados en esta asignatura</h2>
+
+  <table class="tabla">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Apellidos</th>
+        <th>Email</th>
+        <th>Nota en Acta</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      @for (matricula of matriculasFiltradas; track $index) {
+        <tr>
+            <td>{{ matricula.alumno.nombre }}</td>
+            <td>{{ matricula.alumno.apellidos }}</td>
+            <td>{{ matricula.alumno.ipasen }}</td>
+            <td>{{ matricula.notaMedia }}</td>
+        </tr>
+      } @empty {
+        <tr>
+          <td>
+            No hay ningún alumno matriculado en esta asignatura todavía.
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+
+  <br>
+  <a routerLink="/asignaturas" class="btn">Volver a Asignaturas</a>
+</div>
