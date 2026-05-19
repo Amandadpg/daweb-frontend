@@ -1,0 +1,29 @@
+<h2>Listado de Matrículas Aprobadas</h2>
+
+<table class="tabla">
+    <thead>
+        <tr>
+            <th>ID Matrícula</th>
+            <th>Alumno</th>
+            <th>Asignatura</th>
+            <th>Nota</th>
+            <th>Detalle</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @for (matricula of matriculasAprobadas; track matricula.idMat) {
+        <tr>
+            <td>{{ matricula.idMat }}</td>
+            <td>{{ matricula.alumno.nombre }}</td>
+            <td>{{ matricula.asignatura.nombre }}</td>
+            <td>{{ matricula.notaMedia }}</td>
+            <td><a [routerLink]="['/matricula', matricula.idMat]" class="btn">Ver</a></td>
+        </tr>
+        } @empty {
+        <tr>
+            <td colspan="5">No hay ninguna matrícula aprobada registrada.</td>
+        </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,40 @@
+<h2>Detalle del profesor</h2>
+
+<div class="detalle">
+
+  <div class="foto">
+    <img src="/profesor.png" alt="Foto profesor">
+  </div>
+
+  <div class="info">
+
+    @if(profesor){
+    <div class="campo">
+      <div class="label">ID</div>
+      <div class="valor">{{ profesor.id }}</div>
+    </div>
+
+    <div class="campo">
+      <div class="label">Nombre</div>
+      <div class="valor">{{ profesor.nombre }}</div>
+    </div>
+
+    <div class="campo">
+      <div class="label">Apellidos</div>
+      <div class="valor">{{ profesor.apellidos }}</div>
+    </div>
+
+    <div class="campo">
+      <div class="label">Especialidad</div>
+      <div class="valor">{{ profesor.especialidad }}</div>
+    </div>
+    }@else {
+    <p>Cargando profesor...</p>
+    }
+
+  </div>
+</div>
+
+<button class="btn-volver" [routerLink]="['/profesores']">
+  Volver
+</button>

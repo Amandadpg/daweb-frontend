@@ -1,0 +1,40 @@
+<h2>Detalle de la asignatura</h2>
+
+<div class="detalle">
+
+  <div class="foto">
+    <img src="/asignatura.png" alt="Foto asignatura">
+  </div>
+
+  <div class="info">
+
+    @if(asignatura){
+    <div class="campo">
+      <div class="label">ID</div>
+      <div class="valor">{{ asignatura.id }}</div>
+    </div>
+
+    <div class="campo">
+      <div class="label">Nombre</div>
+      <div class="valor">{{ asignatura.nombre }}</div>
+    </div>
+
+    <div class="campo">
+      <div class="label">Profesor</div>
+      <div class="valor">{{ asignatura.profesor.nombre }} {{ asignatura.profesor.apellidos }}</div>
+    </div>
+
+    <div class="campo">
+      <div class="label">Horas</div>
+      <div class="valor">{{ asignatura.horas }}</div>
+    </div>
+    }@else {
+    <p>Cargando asignatura...</p>
+    }
+
+  </div>
+</div>
+
+<button class="btn-volver" [routerLink]="['/asignaturas']">
+  Volver
+</button>

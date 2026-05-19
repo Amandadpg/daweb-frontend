@@ -1,0 +1,41 @@
+<h2>Detalle del alumno</h2>
+
+<div class="detalle">
+
+  <div class="foto">
+    <img src="/alumno.webp" alt="Foto alumno">
+  </div>
+
+  <div class="info">
+
+    @if(alumno){
+      <div class="campo">
+        <div class="label">ID</div>
+        <div class="valor">{{ alumno.id }}</div>
+      </div>
+
+      <div class="campo">
+        <div class="label">Nombre</div>
+        <div class="valor">{{ alumno.nombre }}</div>
+      </div>
+
+      <div class="campo">
+        <div class="label">Apellidos</div>
+        <div class="valor">{{ alumno.apellidos }}</div>
+      </div>
+
+      <div class="campo">
+        <div class="label">iPasen</div>
+        <div class="valor">{{ alumno.ipasen }}</div>
+      </div>
+    }@else {
+      <p>Cargando alumno...</p>
+    }
+
+  </div>
+</div>
+
+<button class="btn-volver" [routerLink]="['/alumnos']">
+  Volver
+</button>
+

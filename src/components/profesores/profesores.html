@@ -1,0 +1,23 @@
+<h2>Listado de profesores</h2>
+
+<table class="tabla">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nombre</th>
+      <th>Apellidos</th>
+      <th>Especialidad</th>
+      <th>Detalle</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let profesor of profesores">
+      <td>{{ profesor.id }}</td>
+      <td>{{ profesor.nombre }}</td>
+      <td>{{ profesor.apellidos }}</td>
+      <td>{{ profesor.especialidad }}</td>
+      <td><a [routerLink]="['/profesor',profesor.id]" class="btn">Ver</a></td>
+    </tr>
+  </tbody>
+</table>

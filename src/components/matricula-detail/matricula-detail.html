@@ -1,0 +1,40 @@
+<h2>Detalle de la matrícula</h2>
+
+<div class="detalle">
+
+  <div class="foto">
+    <img src="/matricula.webp" alt="Foto matricula">
+  </div>
+
+  <div class="info">
+
+    @if(matricula){
+    <div class="campo">
+      <div class="label">ID</div>
+      <div class="valor">{{ matricula.idMat }}</div>
+    </div>
+
+    <div class="campo">
+      <div class="label">Nombre</div>
+      <div class="valor">{{ matricula.alumno.nombre }}</div>
+    </div>
+
+    <div class="campo">
+      <div class="label">Apellidos</div>
+      <div class="valor">{{ matricula.alumno.apellidos }}</div>
+    </div>
+
+    <div class="campo">
+      <div class="label">Nota media</div>
+      <div class="valor">{{ matricula.notaMedia }}</div>
+    </div>
+    }@else {
+    <p>Cargando matricula...</p>
+    }
+
+  </div>
+</div>
+
+<button class="btn-volver" [routerLink]="['/matriculas']">
+  Volver
+</button>
