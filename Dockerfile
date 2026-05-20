@@ -6,14 +6,17 @@ COPY package*.json ./
 RUN npm ci
 
 COPY . .
-# Forzamos que guarde el resultado en una carpeta limpia llamada 'dist-clean'
-RUN npm run build -- --configuration=production --output-path=dist-clean
+RUN npm run build -- --configuration=production
 
 # Etapa 2: Servir con Nginx
 FROM nginx:1.25-alpine
 
-# Copiamos directamente desde nuestra carpeta limpia
-COPY --from=build /app/dist-clean /usr/share/nginx/html
+# Buscamos dónde demonios ha dejado Angular el index.html y copiamos todo ese contenido
+# Este comando copia la carpeta exacta que contiene el compilado real de Angular
+COPY --from=build /app/dist/frontend-ies/. /usr/share/nginx/html/
+
+# Por si acaso tu versión lo ha metido en una subcarpeta browser, hacemos un doble check:
+RUN if [ -d "/usr/share/nginx/html/browser" ]; then cp -r /usr/share/nginx/html/browser/* /usr/share/nginx/html/ && rm -rf /usr/share/nginx/html/browser; fi
 
 EXPOSE 80
 
