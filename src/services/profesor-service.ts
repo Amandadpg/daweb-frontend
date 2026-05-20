@@ -11,12 +11,13 @@ export class ProfesorService {
   
   private baseUrl = environment.apiUrl + '/profesor';
 
-  constructor(
-    private _httpClient: HttpClient
-  ){};
+  constructor(private _httpClient: HttpClient){}
 
-  getProfesor(): Observable<Profesor[]>{
+  getProfesores(): Observable<Profesor[]>{
     return this._httpClient.get<Profesor[]>(this.baseUrl);
   }
 
+  getProfesorById(id: number): Observable<Profesor>{
+    return this._httpClient.get<Profesor>(`${this.baseUrl}/${id}`);
+  }
 }

@@ -13,13 +13,23 @@
   </thead>
 
   <tbody>
-    <tr *ngFor="let matricula of matriculas">
-      <td>{{ matricula.idMat }}</td>
-      <td>{{ matricula.curso }}</td>
-      <td>{{ matricula.notaMedia }}</td>
-      <td>{{ matricula.alumno.nombre }}</td>
-      <td>{{ matricula.asignatura.nombre }}</td>
-      <td><a [routerLink]="['/matricula',matricula.idMat]" class="btn">Ver</a></td>
-    </tr>
+    @for (matricula of matriculas; track matricula.idMat) {
+      <tr>
+        <td>{{ matricula.idMat }}</td>
+        <td>{{ matricula.curso }}</td>
+        <td>{{ matricula.notaMedia }}</td>
+        
+        <td>{{ matricula.alumno.nombre }} {{ matricula.alumno.apellidos }}</td>
+        <td>{{ matricula.asignatura.nombre }}</td>
+        
+        <td><a [routerLink]="['/matricula', matricula.idMat]" class="btn">Ver</a></td>
+      </tr>
+    } @empty {
+      <tr>
+        <td colspan="6" style="text-align: center; padding: 15px; color: #666;">
+          Cargando el registro de matrículas o lista vacía...
+        </td>
+      </tr>
+    }
   </tbody>
 </table>

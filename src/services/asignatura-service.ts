@@ -6,7 +6,7 @@ import { Asignatura } from '../model/asignatura';
 
 @Injectable({
   providedIn: 'root',
-})
+  })
 export class AsignaturaService {
     
   private baseUrl = environment.apiUrl + '/asignatura';
@@ -22,5 +22,4 @@ export class AsignaturaService {
   getAsignaturaById(id: number): Observable<Asignatura>{
     return this._httpClient.get<Asignatura>(this.baseUrl + "/" + id);
   }
-
 }

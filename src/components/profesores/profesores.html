@@ -12,12 +12,20 @@
   </thead>
 
   <tbody>
-    <tr *ngFor="let profesor of profesores">
-      <td>{{ profesor.id }}</td>
-      <td>{{ profesor.nombre }}</td>
-      <td>{{ profesor.apellidos }}</td>
-      <td>{{ profesor.especialidad }}</td>
-      <td><a [routerLink]="['/profesor',profesor.id]" class="btn">Ver</a></td>
-    </tr>
+    @for (profesor of profesores; track profesor.id) {
+      <tr>
+        <td>{{ profesor.id }}</td>
+        <td>{{ profesor.nombre }}</td>
+        <td>{{ profesor.apellidos }}</td>
+        <td>{{ profesor.especialidad }}</td>
+        <td><a [routerLink]="['/profesor', profesor.id]" class="btn">Ver</a></td>
+      </tr>
+    } @empty {
+      <tr>
+        <td colspan="5" style="text-align: center; padding: 15px; color: #666;">
+          Cargando profesores desde el servidor o lista vacía...
+        </td>
+      </tr>
+    }
   </tbody>
 </table>

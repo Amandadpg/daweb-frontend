@@ -19,9 +19,10 @@ export class Profesores {
   ){};
 
   ngOnInit(): void {
-    this.profesorService.getProfesor().subscribe(data => {
+    // Cambiado a getProfesores() y añadido : Profesor[] en la respuesta
+    this.profesorService.getProfesores().subscribe((data: Profesor[]) => {
       this.profesores = data;
-    })
+    });
   }
 
 }
