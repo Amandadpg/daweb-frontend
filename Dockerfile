@@ -6,18 +6,21 @@ COPY package*.json ./
 RUN npm ci
 
 COPY . .
-RUN npm run build -- --configuration=production
+# Forzamos a Angular a meter la compilación en una carpeta fija llamada "publico"
+RUN npm run build -- --configuration=production --output-path=publico
 
-# Etapa 2: Servir con Nginx
+# Etapa 2: Servidor web automático
 FROM nginx:1.25-alpine
 
-# Buscamos dónde demonios ha dejado Angular el index.html y copiamos todo ese contenido
-# Este comando copia la carpeta exacta que contiene el compilado real de Angular
-COPY --from=build /app/dist/frontend-ies/. /usr/share/nginx/html/
+# Borramos la pantalla por defecto de Nginx para que NO pueda salir nunca más
+RUN rm -rf /usr/share/nginx/html/*
 
-# Por si acaso tu versión lo ha metido en una subcarpeta browser, hacemos un doble check:
-RUN if [ -d "/usr/share/nginx/html/browser" ]; then cp -r /usr/share/nginx/html/browser/* /usr/share/nginx/html/ && rm -rf /usr/share/nginx/html/browser; fi
+# Copiamos los archivos directamente desde la carpeta fija que creamos arriba
+# El punto al final indica que copie todo el contenido suelto dentro de Nginx
+COPY --from=build /app/publico/. /usr/share/nginx/html/
+
+# Ponemos la configuración mágica para que Nginx no falle con las rutas de Angular
+RUN echo 'server { listen 80; location / { root /usr/share/nginx/html; index index.html; try_files $uri $uri/ /index.html; } }' > /etc/nginx/conf.d/default.conf
 
 EXPOSE 80
-
 CMD ["nginx", "-g", "daemon off;"]
