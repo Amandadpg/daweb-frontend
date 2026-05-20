@@ -14,8 +14,7 @@ RUN npm run build -- --configuration=production
 FROM nginx:1.25-alpine
 
 # Copiar los archivos directamente desde la raíz dist del proyecto
-COPY --from=build /app/dist/frontend-ies /usr/share/nginx/html
-
+COPY --from=build /app/dist/frontend-ies/browser /usr/share/nginx/html
 # Exponer el puerto por defecto de Nginx
 EXPOSE 80
 
