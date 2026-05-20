@@ -2,20 +2,19 @@
 FROM node:20-alpine AS build
 WORKDIR /app
 
-# Copiar archivos de dependencias y descargarlas
 COPY package*.json ./
 RUN npm ci
 
-# Copiar el resto del código y compilar para producción
 COPY . .
-RUN npm run build -- --configuration=production
+# Forzamos que guarde el resultado en una carpeta limpia llamada 'dist-clean'
+RUN npm run build -- --configuration=production --output-path=dist-clean
 
-# Etapa 2: Servir la aplicación estática con Nginx
+# Etapa 2: Servir con Nginx
 FROM nginx:1.25-alpine
 
-# Copiar los archivos directamente desde la raíz dist del proyecto
-COPY --from=build /app/dist/frontend-ies/browser /usr/share/nginx/html
-# Exponer el puerto por defecto de Nginx
+# Copiamos directamente desde nuestra carpeta limpia
+COPY --from=build /app/dist-clean /usr/share/nginx/html
+
 EXPOSE 80
 
 CMD ["nginx", "-g", "daemon off;"]
