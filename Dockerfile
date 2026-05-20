@@ -10,14 +10,13 @@ RUN npm ci
 COPY . .
 RUN npm run build -- --configuration=production
 
-# Etapa 2: Servir la aplicación con Nginx (Servidor Web)
+# Etapa 2: Servir la aplicación estática con Nginx
 FROM nginx:1.25-alpine
 
-# Copiar los archivos compilados de Angular a la carpeta pública de Nginx
-# NOTA: Revisa si en tu carpeta 'dist/' el resultado se guarda directamente o dentro de otra carpeta
-COPY --from=build /app/dist/frontend-ies/browser /usr/share/nginx/html
+# Copiar los archivos directamente desde la raíz dist del proyecto
+COPY --from=build /app/dist/frontend-ies /usr/share/nginx/html
 
-# Copiar configuración básica si fuera necesario, o exponer el puerto por defecto
+# Exponer el puerto por defecto de Nginx
 EXPOSE 80
 
 CMD ["nginx", "-g", "daemon off;"]
