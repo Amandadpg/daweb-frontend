@@ -6,20 +6,18 @@ COPY package*.json ./
 RUN npm ci
 
 COPY . .
-# Forzamos a Angular a meter la compilación en una carpeta fija llamada "publico"
 RUN npm run build -- --configuration=production --output-path=publico
 
-# Etapa 2: Servidor web automático
+# Etapa 2: Servidor web
 FROM nginx:1.25-alpine
 
-# Borramos la pantalla por defecto de Nginx para que NO pueda salir nunca más
 RUN rm -rf /usr/share/nginx/html/*
 
-# Copiamos los archivos directamente desde la carpeta fija que creamos arriba
-# El punto al final indica que copie todo el contenido suelto dentro de Nginx
+# COPIA INTELIGENTE: Copia tanto si está en la raíz de publico como si está en publico/browser
 COPY --from=build /app/publico/. /usr/share/nginx/html/
+RUN if [ -d "/usr/share/nginx/html/browser" ]; then cp -r /usr/share/nginx/html/browser/* /usr/share/nginx/html/ && rm -rf /usr/share/nginx/html/browser; fi
 
-# Ponemos la configuración mágica para que Nginx no falle con las rutas de Angular
+# Configuración para evitar fallos de rutas dinámicas en Angular
 RUN echo 'server { listen 80; location / { root /usr/share/nginx/html; index index.html; try_files $uri $uri/ /index.html; } }' > /etc/nginx/conf.d/default.conf
 
 EXPOSE 80
