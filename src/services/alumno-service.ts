@@ -12,7 +12,7 @@ export class AlumnoService {
 
   constructor(
     private _httpClient: HttpClient
-  ){};
+  ) {}
 
   getAlumnos(): Observable<Alumno[]>{
     return this._httpClient.get<Alumno[]>(this.baseUrl);

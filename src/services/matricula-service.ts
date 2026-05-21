@@ -13,10 +13,13 @@ export class MatriculaService {
 
   constructor(
     private _httpClient: HttpClient
-  ){};
+  ) {}
 
   getMatriculas(): Observable<Matricula[]>{
     return this._httpClient.get<Matricula[]>(this.baseUrl);
   }
 
+  getMatriculaById(id: number): Observable<Matricula>{
+    return this._httpClient.get<Matricula>(this.baseUrl + "/" + id);
+  }
 }

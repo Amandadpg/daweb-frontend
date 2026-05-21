@@ -1,15 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Asignatura } from '../../model/asignatura';
 import { AsignaturaService } from '../../services/asignatura-service';
 
 @Component({
   selector: 'app-asignatura-detail',
+  standalone: true, 
   imports: [RouterLink],
   templateUrl: './asignatura-detail.html',
   styleUrl: './asignatura-detail.css',
 })
-export class AsignaturaDetail {
+export class AsignaturaDetail implements OnInit { 
 
   id!: number;
   asignatura!: Asignatura;
@@ -19,12 +20,10 @@ export class AsignaturaDetail {
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.id = Number(params['id']); 
+      
+      this.asignaturaService.getAsignaturaById(this.id).subscribe(asignatura => {
+        this.asignatura = asignatura;
+      });
     });
-
-    this.asignaturaService.getAsignaturaById(this.id).subscribe(asignatura => {
-      this.asignatura = asignatura;
-    });
-    
   }
-
 }

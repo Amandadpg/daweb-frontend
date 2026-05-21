@@ -6,6 +6,7 @@ import { AlumnoService } from '../../services/alumno-service';
 
 @Component({
   selector: 'app-alumnos',
+  standalone: true,
   imports: [CommonModule, RouterLink],
   templateUrl: './alumnos.html',
   styleUrl: './alumnos.css',
@@ -16,12 +17,12 @@ export class Alumnos implements OnInit{
   
   constructor(
     private alumnoService: AlumnoService
-  ){};
+  ) {}
 
   ngOnInit(): void {
     this.alumnoService.getAlumnos().subscribe(data => {
       this.alumnos = data;
-    })
+    });
   }
   
 }

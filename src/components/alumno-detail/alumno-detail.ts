@@ -5,11 +5,12 @@ import { AlumnoService } from '../../services/alumno-service';
 
 @Component({
   selector: 'app-alumno-detail',
+  standalone: true,
   imports: [RouterLink],
   templateUrl: './alumno-detail.html',
   styleUrl: './alumno-detail.css',
 })
-export class AlumnoDetail implements OnInit{
+export class AlumnoDetail implements OnInit {
 
   id!: number;
   alumno!: Alumno;
@@ -19,12 +20,10 @@ export class AlumnoDetail implements OnInit{
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.id = Number(params['id']); 
+      
+      this.alumnoService.getAlumnoById(this.id).subscribe(alumno => {
+        this.alumno = alumno;
+      });
     });
-
-    this.alumnoService.getAlumnoById(this.id).subscribe(alumno => {
-      this.alumno = alumno;
-    });
-    
   }
-  
 }
